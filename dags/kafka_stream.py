@@ -1,4 +1,3 @@
-import uuid
 from datetime import datetime
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -7,13 +6,12 @@ import random
 
 default_args = {
     'owner': 'airscholar',
-    'start_date': datetime(2023, 9, 3, 10, 0)
+    'start_date': datetime(2023, 9, 3, 10, 00)
 }
 
 dataset = load_dataset("tuandatebayo/amazon_sale", split="train", trust_remote_code=True)
 
 def get_data():
-    # Fetch a random review from the dataset
     random_index = random.randint(0, len(dataset) - 1)
     return dataset[random_index]
 
@@ -45,20 +43,18 @@ def stream_data():
     import logging
 
     producer = KafkaProducer(bootstrap_servers=['broker:29092'], max_block_ms=5000)
-    curr_time = time.time()
+    curr_time = time.time() 
 
     while True:
-        if time.time() > curr_time + 60:  # Run for 1 minute
+        if time.time() > curr_time + 60: #1 minute
             break
         try:
-            # Fetch and format data
             res = get_data()
-            formatted_res = format_data(res)
+            res = format_data(res)
 
-            # Send data to Kafka
-            producer.send('amazon_reviews', json.dumps(formatted_res).encode('utf-8'))
+            producer.send('amazon_reviews', json.dumps(res).encode('utf-8'))
         except Exception as e:
-            logging.error(f'An error occurred: {e}')
+            logging.error(f'An error occured: {e}')
             continue
 
 with DAG('user_automation',
@@ -67,6 +63,9 @@ with DAG('user_automation',
          catchup=False) as dag:
 
     streaming_task = PythonOperator(
-        task_id='amazon_reviews',
+        task_id='stream_data_from_api',
         python_callable=stream_data
     )
+
+
+# stream_data()
