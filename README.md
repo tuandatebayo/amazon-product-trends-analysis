@@ -14,7 +14,7 @@ This project serves as a comprehensive guide to building an end-to-end data engi
 
 ## System Architecture
 
-![System Architecture](https://github.com/tuandatebayo/bigdata20241-14/blob/main/Architecture.png)
+![System Architecture](https://github.com/tuandatebayo/amazon-product-trends-analysis/blob/main/Architecture.png)
 
 The project is designed with the following components:
 
@@ -44,7 +44,7 @@ Kaggle: https://www.kaggle.com/datasets/karkavelrajaj/amazon-sales-dataset
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/tuandatebayo/bigdata20241-14
+    git clone https://github.com/tuandatebayo/amazon-product-trends-analysis
     ```
 
 2. Navigate to the project directory:
