@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -12,6 +13,8 @@ default_args = {
 dataset = load_dataset("tuandatebayo/amazon_sale", split="train", trust_remote_code=True)
 
 def get_data():
+    import requests
+
     random_index = random.randint(0, len(dataset) - 1)
     return dataset[random_index]
 
