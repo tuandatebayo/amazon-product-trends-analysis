@@ -5,8 +5,10 @@
 - [System Architecture](#system-architecture)
 - [Technologies](#technologies)
 - [Getting Started](#getting-started)
-
+- [Reference](#reference)
+  
 ## Introduction
+
 
 This project serves as a comprehensive guide to building an end-to-end data engineering pipeline. It covers each stage from data ingestion to processing and finally to storage, utilizing a robust tech stack that includes Apache Airflow, Python, Apache Kafka, Apache Zookeeper, Apache Spark, and Cassandra. Everything is containerized using Docker for ease of deployment and scalability.
 
@@ -61,3 +63,6 @@ Kaggle: https://www.kaggle.com/datasets/karkavelrajaj/amazon-sales-dataset
     ```bash
     make shutdown-docker
     ```
+## Reference
+
+Our project is based on [e2e-data-engineering](https://github.com/airscholar/e2e-data-engineering) instructed by Mr. Yusuf Ganiyu. You can watch his tutorial for the project in this link: https://www.youtube.com/watch?v=GqAcTrqKcrY
