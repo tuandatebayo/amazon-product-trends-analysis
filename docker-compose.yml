@@ -191,11 +191,49 @@ services:
     ports:
       - "9042:9042"
     environment:
-      - MAX_HEAP_SIZE=512M
-      - HEAP_NEWSIZE=100M
+      - MAX_HEAP_SIZE=2G
+      - HEAP_NEWSIZE=400M
       - CASSANDRA_USERNAME=cassandra
       - CASSANDRA_PASSWORD=cassandra
     networks:
       - confluent
+  superset:
+    image: custom-superset:latest
+    container_name: superset
+    hostname: superset
+    depends_on:
+      - cassandra_db
+    ports:
+      - "8088:8088"
+    environment:
+      SUPERSET_SECRET_KEY: "viaph7vlMUbEh5cSqbLgNU1CeFhNKJeItIh6Nr/KLH4="
+      PYTHONPATH: "/app/pythonpath:/app/superset_config"
+      FLASK_ENV: production  # Add this to ensure proper binding
+    volumes:
+      - ./superset_config.py:/app/pythonpath/superset_config.py
+      - ./superset_home:/app/superset_home
+    command: >
+      /bin/bash -c
+      "superset db upgrade &&
+      superset fab create-admin --username admin --password admin --firstname Superset --lastname Admin --email admin@superset.com &&
+      superset init &&
+      superset run -h 0.0.0.0 -p 8088 --with-threads"
+    networks:
+      - confluent
+  trino:
+    image: trinodb/trino:latest
+    container_name: trino
+    hostname: trino
+    environment:
+      - CONNECT_CASSANDRA=true
+    ports:
+      - "8082:8080"
+    depends_on:
+      - cassandra_db
+    networks:
+      - confluent
+    volumes:
+      - ./trino/catalog:/etc/trino/catalog
+
 networks:
   confluent:
