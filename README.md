@@ -49,7 +49,7 @@ Kaggle: https://www.kaggle.com/datasets/karkavelrajaj/amazon-sales-dataset
 
 2. Navigate to the project directory:
     ```bash
-    cd bigdata20241-14
+    cd amazon-product-trends-analysis
     ```
 3. Run Docker Compose to spin up the services:
     ```bash
