@@ -6,8 +6,8 @@ from datasets import load_dataset
 import random
 
 default_args = {
-    'owner': 'airscholar',
-    'start_date': datetime(2023, 9, 3, 10, 00)
+    'owner': 'tuandatebayo',
+    'start_date': datetime(2024, 11, 9, 10, 00)
 }
 
 dataset = load_dataset("tuandatebayo/amazon_sale", split="train", trust_remote_code=True)
